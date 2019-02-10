@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.barvius.ai_1.entity.Diagnose;
 import com.barvius.ai_1.entity.Symptom;
 import com.barvius.ai_1.entity.TestAnswer;
+import com.barvius.ai_1.ui.StatusBarTools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,11 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        StatusBarTools.setStatusBarColor(getWindow(),getResources().getColor(R.color.backgroundAppBarDark));
+
         if(DBHandler.getInstance().selectDiagnoses().size() == 0){
             Toast toast = Toast.makeText(getApplicationContext(),
                     "В базе отсутствуют диагнозы!", Toast.LENGTH_SHORT);

@@ -2,6 +2,8 @@ package com.barvius.ai_1;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.ContextThemeWrapper;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.barvius.ai_1.entity.Diagnose;
 import com.barvius.ai_1.entity.Symptom;
+import com.barvius.ai_1.ui.StatusBarTools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,12 @@ public class DiagnoseEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagnose_edit);
         long id = getIntent().getLongExtra("id",0);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        myToolbar.setTitle(DBHandler.getInstance().selectDiagnoseById(id).getName());
+        setSupportActionBar(myToolbar);
+        StatusBarTools.setStatusBarColor(getWindow(),getResources().getColor(R.color.backgroundAppBarDark));
+
         createArea(id);
     }
 
@@ -32,14 +41,14 @@ public class DiagnoseEditActivity extends AppCompatActivity {
         final Diagnose currentDiagnose = DBHandler.getInstance().selectDiagnoseById(id);
         final Button button = findViewById(R.id.btn_diagnose_save);
 
-        TextView name = (TextView) findViewById(R.id.diagnose_name);
-        name.setText(currentDiagnose.getName());
+//        TextView name = (TextView) findViewById(R.id.diagnose_name);
+//        name.setText(currentDiagnose.getName());
 
 
         symptomList.addAll(DBHandler.getInstance().selectSymptomNames());
 
         for (Symptom i : symptomList) {
-            CheckBox tmp = new CheckBox(this);
+            CheckBox tmp = new CheckBox(new ContextThemeWrapper(this, R.style.uiCheckBoxStyle));
             tmp.setText(i.getName());
             tmp.setId(symptomList.indexOf(i));
             if(currentDiagnose.symptomAvailable(i)){

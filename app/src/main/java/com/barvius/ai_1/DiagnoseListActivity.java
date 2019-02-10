@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.barvius.ai_1.entity.Diagnose;
+import com.barvius.ai_1.ui.StatusBarTools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,12 @@ public class DiagnoseListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagnose_list);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        myToolbar.setTitle("Диагнозы");
+        setSupportActionBar(myToolbar);
+        StatusBarTools.setStatusBarColor(getWindow(),getResources().getColor(R.color.backgroundAppBarDark));
+
         loadList();
     }
 
